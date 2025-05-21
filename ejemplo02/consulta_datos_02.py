@@ -19,7 +19,15 @@ Session = sessionmaker(bind=engine)
 session = Session()
 
 # Sacar las matriculas con su estudiante y módulo
-matriculas = session.query(Matricula).all()
+# matriculas = session.query(Matricula).all()
 
-for m in matriculas:
-    print(m, m.estudiante, m.modulo)
+# for m in matriculas:
+#     print(m, m.estudiante, m.modulo)
+
+# Obtener todos los modulos que tengan matriculas que su estudiante sea Tony
+
+modulos = session.query(Modulo).join(Matricula).join(Estudiante).\
+         filter(Estudiante.nombre.like("%Tony%")).all()
+
+for m in modulos:
+    print(f"{m}")
